@@ -1,0 +1,38 @@
+{
+  "name": "nano-context",
+  "version": "0.1.0",
+  "description": "A tiny pi.dev extension. It replaces the default context meter with a compact segmented bar under the editor so you can see what is using the window.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Sergey Golovin",
+  "homepage": "https://github.com/daynin/nano-context",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daynin/nano-context.git"
+  },
+  "bugs": {
+    "url": "https://github.com/daynin/nano-context/issues"
+  },
+  "keywords": ["pi-package"],
+  "files": [
+    "index.ts",
+    "imgs",
+    "README.md",
+    "LICENSE"
+  ],
+  "pi": {
+    "extensions": ["./index.ts"],
+    "image": "https://github.com/daynin/nano-context/blob/main/imgs/example.png?raw=true"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "@mariozechner/pi-coding-agent": "*"
+  },
+  "devDependencies": {
+    "@mariozechner/pi-coding-agent": "^0.73.0",
+    "@types/node": "^22.0.0",
+    "typescript": "^5.6.0"
+  }
+}
