@@ -257,10 +257,20 @@ const chooseLabel = (labels: readonly string[], width: number): string => {
 	return "";
 };
 
-const renderUsedSegment = (labels: readonly string[], color: string, width: number): string => {
+const labelOptionsWithTokens = (labels: readonly string[], tokens: number): readonly string[] => {
+	const formattedTokens = formatTokens(tokens);
+
+	return [
+		...labels.map((label) => `${label} ${formattedTokens}`),
+		...labels.map((label) => `${label}${formattedTokens}`),
+		...labels,
+	];
+};
+
+const renderUsedSegment = (labels: readonly string[], tokens: number, color: string, width: number): string => {
 	if (width <= 0) return "";
 
-	const label = chooseLabel(labels, width);
+	const label = chooseLabel(labelOptionsWithTokens(labels, tokens), width);
 	const text = label.length > 0 ? foreground(USED_SEGMENT_TEXT, centeredText(label, width)) : " ".repeat(width);
 
 	return background(color, text);
@@ -322,7 +332,7 @@ const renderContextBar = (snapshot: ContextSnapshot, width: number, freeTextOpti
 	const values = [...USED_SEGMENTS.map((segment) => snapshot.segments[segment.key]), freeTokens];
 	const columns = allocateBarColumns(values, width);
 	const usedSegments = USED_SEGMENTS
-		.map((segment, index) => renderUsedSegment(segment.labels, segment.color, columns[index] ?? 0))
+		.map((segment, index) => renderUsedSegment(segment.labels, snapshot.segments[segment.key], segment.color, columns[index] ?? 0))
 		.join("");
 	const freeWidth = columns[USED_SEGMENTS.length] ?? 0;
 
